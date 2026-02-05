@@ -116,6 +116,8 @@ echo "=== Instalando dependencias de Odoo ==="
 # Instalar psycopg2-binary o compilar psycopg2 (libpq-dev requerido, ya instalado)
 # requirements.txt de Odoo suele tener psycopg2 puro.
 # Pre-instalar gevent para asegurar uso de wheel binario o build correcto antes de requirements
+# Eliminar la restricción de versión de gevent para evitar errores de compilación con Cython nuevo
+sed -i 's/gevent==21.8.0/gevent/' ${ODOO_HOME}/src/requirements.txt
 sudo -u ${ODOO_USER} ${ODOO_HOME}/venv/bin/pip install gevent
 sudo -u ${ODOO_USER} ${ODOO_HOME}/venv/bin/pip install -r ${ODOO_HOME}/src/requirements.txt
 
