@@ -36,7 +36,7 @@ sudo apt install -y git python3 python3-pip python3-venv \
     build-essential wget python3-dev libxml2-dev libxslt1-dev zlib1g-dev \
     libsasl2-dev libldap2-dev libjpeg-dev libpq-dev libffi-dev libtiff-dev \
     libopenjp2-7-dev liblcms2-dev libwebp-dev libharfbuzz-dev libfribidi-dev \
-    libxcb1-dev libx11-dev libssl-dev npm nodejs fontconfig xfonts-75dpi \
+    libxcb1-dev libx11-dev libssl-dev libev-dev npm nodejs fontconfig xfonts-75dpi \
     xfonts-base libxrender1
 
 # Instalar versión específica de python headers si es necesario (generalmente python3-dev cubre el default)
@@ -115,6 +115,8 @@ fi
 echo "=== Instalando dependencias de Odoo ==="
 # Instalar psycopg2-binary o compilar psycopg2 (libpq-dev requerido, ya instalado)
 # requirements.txt de Odoo suele tener psycopg2 puro.
+# Pre-instalar gevent para asegurar uso de wheel binario o build correcto antes de requirements
+sudo -u ${ODOO_USER} ${ODOO_HOME}/venv/bin/pip install gevent
 sudo -u ${ODOO_USER} ${ODOO_HOME}/venv/bin/pip install -r ${ODOO_HOME}/src/requirements.txt
 
 echo "=== Creando archivo de configuración de Odoo ==="
